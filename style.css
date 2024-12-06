@@ -1,0 +1,18 @@
+button#QC {
+    height: 20%;
+    position:absolute;
+    top:0%;
+    left:0;
+}
+div#games {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    background-color: aquamarine;
+    border-radius: 10px;
+    top: 25%;
+    left:25%;
+}
+body {
+    background-color: blue;
+}

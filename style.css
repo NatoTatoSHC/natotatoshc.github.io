@@ -4,6 +4,12 @@ button#QC {
     top:0%;
     left:0;
 }
+button#J {
+    height: 20%;
+    position:relative;
+    top:0%;
+    left:0;
+}
 div#games {
     width: 50%;
     height: 50%;

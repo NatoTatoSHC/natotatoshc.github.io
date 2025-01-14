@@ -6,8 +6,8 @@ button#QC {
 }
 button#J {
     height: 20%;
-    position:relative;
-    top:0%;
+    position:absolute;
+    top:20%;
     left:0;
 }
 div#games {

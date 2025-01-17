@@ -10,6 +10,12 @@ button#J {
     top:20%;
     left:0;
 }
+button#rala {
+    height: 20%;
+    position:absolute;
+    top:40%;
+    left:0;
+}
 div#games {
     width: 50%;
     height: 50%;

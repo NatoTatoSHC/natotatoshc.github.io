@@ -1,3 +1,9 @@
+
+div.nav:hover {
+    background-color: rgb(0, 128, 128);
+}
+
+
 button#QC {
     height: 20%;
     position:absolute;
@@ -16,7 +22,7 @@ button#rala {
     top:40%;
     left:0;
 }
-div#games {
+div#main {
     width: 50%;
     height: 50%;
     position: absolute;

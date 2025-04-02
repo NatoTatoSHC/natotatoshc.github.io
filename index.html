@@ -19,7 +19,7 @@
         ">
             <div class="nav" id="gametab" style="text-align: center;"><h1 style="font-size: 200%;">GAMES</h1></div>
             <div class="nav"></div>
-            <div class="nav"></div>
+            <div class="nav" id="tooltab" style="text-align: center;"><h1 style="font-size: 200%;">TOOLS</h1></div>
             <div class="nav" id="abouttab" style="text-align: center;"><h1 style="font-size: 200%;">ABOUT</h1></div>
             <div class="nav" id="contacttab" style="text-align: center;"><h1 style="font-size: 200%;">CONTACTS</h1></div>
         </div>
@@ -39,6 +39,14 @@
                 top: 60%;
                 left:0;
                 ">NateWorks Attack</button>
+            </div>
+            <div id="tools">
+                <button onclick="location.assign('https://sites.google.com/stagneselementary.org/nukepanel')" style="
+                height: 20%;
+                position: absolute;
+                top:0;
+                left:0;
+                ">Nuke Panel</button>
             </div>
             <div id="about" style="overflow-y: auto;">
                 <h2>Why is There An SHC</h2>
@@ -66,24 +74,35 @@
             var gamescreen = document.getElementById("games");
             var contactsscreen = document.getElementById("contacts");
             var aboutscreen = document.getElementById("about");
+            var toolsscreen = document.getElementById("tools");
 
             contactsscreen.hidden = true;
             aboutscreen.hidden = true;
+            toolsscreen.hidden = true;
 
             document.getElementById("gametab").onclick = function() {
                 gamescreen.hidden = false;
                 contactsscreen.hidden = true;
                 aboutscreen.hidden = true;
+                toolsscreen.hidden = true;
             }
             document.getElementById("contacttab").onclick = function() {
                 gamescreen.hidden = true;
                 contactsscreen.hidden = false;
                 aboutscreen.hidden = true;
+                toolsscreen.hidden = true;
             }
             document.getElementById("abouttab").onclick = function() {
                 gamescreen.hidden = true;
                 contactsscreen.hidden = true;
                 aboutscreen.hidden = false;
+                toolsscreen.hidden = true;
+            }
+            document.getElementById("tooltab").onclick = function() {
+                gamescreen.hidden = true;
+                contactsscreen.hidden = true;
+                aboutscreen.hidden = true;
+                toolsscreen.hidden = false;
             }
             
         </script>

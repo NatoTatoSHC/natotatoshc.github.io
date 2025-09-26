@@ -1,16 +1,10 @@
-body {
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-  background: linear-gradient(to right, #1e3c72, #2a5298);
-  color: #fff;
-}
-
 header {
-  display: grid;
-  /*align-items: center;*/
-  grid-template-columns: auto auto auto;
+  display: flex;
+  align-items: center;        /* vertical centering */
+  justify-content: space-between; /* push ends apart */
   padding: 10px 20px;
   background-color: #003366;
+  position: relative; /* lets us absolutely-position the title */
 }
 
 .logo {
@@ -18,79 +12,19 @@ header {
   margin-right: 15px;
   border-radius: 50%;
   object-fit: cover;
-  grid-column: 1;
 }
 
-.parent-site-title {
-  font-size: 1.5rem;
-  grid-column: 1;
-}
+/* center the site title horizontally */
 .site-title {
   font-size: 1.5rem;
-  grid-column: 2;
+  position: absolute;          /* take it out of normal flow */
+  left: 50%;                   /* move its left edge to center */
+  transform: translateX(-50%); /* truly center it */
+  margin: 0;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-around;
-  background-color: #00cccc;
-  padding: 10px 0;
-}
-
-.nav {
-  cursor: pointer;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-.nav:hover {
-  color: yellow;
-}
-
-#main {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #e0fff4;
-  color: #000;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-button {
-  display: block;
-  width: 200px;
-  margin: 10px auto;
-  padding: 10px;
-  font-size: 1rem;
-  background-color: teal;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: darkcyan;
-}
-
-@media (max-width: 600px) {
-  .navbar {
-    flex-direction: column;
-    font-size: 0.9rem;
-  }
-
-  button {
-    width: 90%;
-  }
-
-  #main {
-    margin-top: 100px;
-    padding: 10px;
-  }
-
-  header h1 {
-    font-size: 1.2rem;
-  }
+/* parent site title stays on the right */
+.parent-site-title {
+  font-size: 1.5rem;
+  margin-left: auto;           /* stick to the far right */
 }

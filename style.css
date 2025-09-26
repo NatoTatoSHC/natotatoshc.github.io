@@ -6,8 +6,8 @@ body {
 }
 
 header {
-  display: flex;
-  align-items: center;
+  /*display: flex;
+  align-items: center;*/
   padding: 10px 20px;
   background-color: #003366;
 }

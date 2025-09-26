@@ -19,8 +19,12 @@ header {
   object-fit: cover;
 }
 
+.parent-site-title {
+  font-size: 1.5rem;
+}
 .site-title {
   font-size: 1.5rem;
+  text-align: center;
 }
 
 .navbar {

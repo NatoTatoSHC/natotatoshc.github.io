@@ -24,6 +24,7 @@ header {
 }
 .site-title {
   font-size: 1.5rem;
+  align-self: center;
 }
 
 .navbar {

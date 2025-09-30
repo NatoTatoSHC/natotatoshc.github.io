@@ -99,5 +99,6 @@ button:hover {
   }
   .parent-site-title {
     visibility: hidden;
+    display: none;
   }
 }

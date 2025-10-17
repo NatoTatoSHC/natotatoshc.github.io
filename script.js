@@ -1,3 +1,4 @@
+location.replace("/pgun");
 const sections = {
   gametab: "games",
   classictab: "classics",

@@ -26,5 +26,5 @@ document.getElementById("rala").onclick = () => {
   // location.assign("https://natotatoshc.github.io/Ralandia");
 };
 document.getElementById("NWA").onclick = () => {
-  location.assign("https://natotatoshc.github.io/NateWorks-Attack");
+  location.assign("https://natotatoshc.github.io/pgun");
 };

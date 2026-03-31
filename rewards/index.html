@@ -5,27 +5,90 @@
             header {
                 text-align: center;
             }
+            #ptheader {
+                height: 100px;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                grid-template-rows: 1fr;
+            }
+            #points {
+                font-size: 2rem;
+                text-align: center;
+            }
+            .redeem-item {
+                width: 100%;
+                height: fit-content;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                place-items: center;
+                border: 1px solid black;
+                img {
+                    grid-column: 1;
+                    grid-row: 1 / span 3;
+                    height: 100px;
+                }
+                h2 {
+                    grid-column: 2 / span 4;
+                    grid-row: 1;
+                }
+                p {
+                    grid-column: 2;
+                    grid-row: 2;
+                }
+                button {
+                    grid-column: 3;
+                    grid-row: 2;
+                }
+            }
         </style>
     </head>
     <body>
         <header>
             <h1 id="name">NatoTatoSHC Rewards</h1>
         </header>
-        <p>Points:</p><p id="points"></p>
+        <div id="ptheader">
+            <div>
+                <p id="points"></p>
+            </div>
+        </div>
+        <div id="earn">
+            <h2>Earn</h2>
+        </div>
+        <div id="redeem">
+            <h2>Redeem</h2>
+            <div class="redeem-item"><img src="https://natotatoshc.github.io/QuantumClicker/src/cursor.png"><h2>10x Cursors</h2><p>Price: 2000</p><button onclick="qpurchase('cursors', 10, 2000)">Redeem</button></div>
+            <div class="redeem-item"><img src="https://natotatoshc.github.io/QuantumClicker/src/dam.png"><h2>10x Dams</h2><p>Price: 4000</p><button onclick="qpurchase('dams', 10, 4000)">Redeem</button></div>
+        </div>
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script>
+            let ptsd = {};
             let client = supabase.createClient("https://ywsbaxwlytkjkzhyfzqr.supabase.co", "sb_publishable_C6rZSBHWegX7bzcsv7OGFg_PgJkqTC0");
             if (localStorage.getItem("login") == undefined) {
                 location.assign("./login.html");
             }
             const locData = JSON.parse(localStorage.getItem("login"));
-            async function main() {
+            async function pullAmount() {
                 let {data, e} = await client.from("reward-accounts").select("*").eq("username", locData.username);
                 data.forEach(dati => {
-                    document.querySelector("#points").textContent = dati.data.points;
+                    ptsd = dati.data;
+                    document.querySelector("#points").textContent = dati.data.points+"pts";
                 });
             }
-            main();
+            async function pushAmount() {
+                await client.from("reward-accounts").update([{data:ptsd}]).eq("username", locData.username);
+                pullAmount();
+            }
+            async function qpurchase(vari, amount, price) {
+                if (ptsd.points >= price) {
+                    ptsd.points -= price;
+                    pushAmount();
+                    let code = Math.round(Math.random()*100000);
+                    alert("Code: "+code);
+                    await client.from("quantum-rewards").insert([{code:code,var:vari,amount:amount,security_verify:locData.username}]);
+                }
+            }
+            pullAmount();
         </script>
     </body>
 </html>

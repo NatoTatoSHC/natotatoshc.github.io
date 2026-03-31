@@ -50,6 +50,7 @@
                         data.username = usernameInp.value;
                         data.password = passwordInp.value;
                         localStorage.setItem("login", JSON.stringify(data));
+                        location.assign("../");
                     } else {
                         alert("inc pass");
                     }

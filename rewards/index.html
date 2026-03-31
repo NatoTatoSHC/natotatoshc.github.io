@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title></title>
+        <style>
+            header {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1 id="name">NatoTatoSHC Rewards</h1>
+        </header>
+        <p>Points:</p><p id="points"></p>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script>
+            let client = supabase.createClient("https://ywsbaxwlytkjkzhyfzqr.supabase.co", "sb_publishable_C6rZSBHWegX7bzcsv7OGFg_PgJkqTC0");
+            if (localStorage.getItem("login") == undefined) {
+                location.assign("./login.html");
+            }
+            const locData = JSON.parse(localStorage.getItem("login"));
+            async function main() {
+                let {data, e} = await client.from("reward-accounts").select("*").eq("username", locData.username);
+                data.forEach(dati => {
+                    document.querySelector("#points").textContent = dati.data.points;
+                });
+            }
+            main();
+        </script>
+    </body>
+</html>

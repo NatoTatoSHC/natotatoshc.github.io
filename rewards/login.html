@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <style>
+            header {
+                text-align: center;
+            }
+            section {
+                justify-items: center;
+            }
+            form {
+                display: grid;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1 id="name">NatoTatoSHC Rewards</h1>
+        </header>
+        <section>
+            <h2>Login</h2>
+            <form method="post">
+                <input type="text" id="username" autocomplete="off" placeholder="Username"/>
+                <br>
+                <input type="text" id="password" autocomplete="off" placeholder="Password"/>
+                <br>
+                <button id="btn">Login</button>
+            </form>
+        </section>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script>
+            let users=[];
+            let pswds=[];
+            const usernameInp = document.getElementById("username");
+            const passwordInp = document.getElementById("password");
+            async function main() {
+                let client = supabase.createClient("https://ywsbaxwlytkjkzhyfzqr.supabase.co", "sb_publishable_C6rZSBHWegX7bzcsv7OGFg_PgJkqTC0");
+                let info1 = await client.from("reward-accounts").select("*");
+                users = [];
+                pswds = [];
+                info1.data.forEach(dati => {
+                    users.push(dati.username);
+                    pswds.push(dati.password);
+                });
+                console.log(users, pswds);
+            }
+            async function login() {
+                if (users.includes(usernameInp.value)) {
+                    if (passwordInp.value == pswds[users.indexOf(usernameInp.value)]) {
+                        let data = {};
+                        data.username = usernameInp.value;
+                        data.password = passwordInp.value;
+                        localStorage.setItem("login", JSON.stringify(data));
+                    } else {
+                        alert("inc pass");
+                    }
+                } else {
+                    alert("no user");
+                }
+            }
+            main();
+            document.querySelector("#btn").addEventListener("click", login);
+        </script>
+    </body>
+</html>

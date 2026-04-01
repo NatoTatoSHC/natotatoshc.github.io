@@ -7,7 +7,7 @@
             section {
                 justify-items: center;
             }
-            form {
+            div {
                 display: grid;
             }
         </style>
@@ -18,13 +18,14 @@
         </header>
         <section>
             <h2>Login</h2>
-            <form method="post">
+            <div>
                 <input type="text" id="username" autocomplete="off" placeholder="Username"/>
                 <br>
                 <input type="text" id="password" autocomplete="off" placeholder="Password"/>
                 <br>
                 <button id="btn">Login</button>
-            </form>
+                <a href="./signup.html">Sign Up</a>
+            </div>
         </section>
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script>
@@ -41,7 +42,6 @@
                     users.push(dati.username);
                     pswds.push(dati.password);
                 });
-                console.log(users, pswds);
             }
             async function login() {
                 if (users.includes(usernameInp.value)) {
@@ -50,7 +50,7 @@
                         data.username = usernameInp.value;
                         data.password = passwordInp.value;
                         localStorage.setItem("login", JSON.stringify(data));
-                        location.assign("../");
+                        location.assign(".");
                     } else {
                         alert("inc pass");
                     }

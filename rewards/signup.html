@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <style>
+            header {
+                text-align: center;
+            }
+            section {
+                justify-items: center;
+            }
+            div {
+                display: grid;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1 id="name">NatoTatoSHC Rewards</h1>
+        </header>
+        <section>
+            <h2>Sign Up</h2>
+            <div>
+                <input type="text" id="username" autocomplete="off" placeholder="Username"/>
+                <br>
+                <input type="text" id="password" autocomplete="off" placeholder="Password"/>
+                <br>
+                <button id="btn">Sign Up</button>
+            </div>
+        </section>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script>
+            let users=[];
+            let pswds=[];
+            const usernameInp = document.getElementById("username");
+            const passwordInp = document.getElementById("password");
+            let client = supabase.createClient("https://ywsbaxwlytkjkzhyfzqr.supabase.co", "sb_publishable_C6rZSBHWegX7bzcsv7OGFg_PgJkqTC0");
+            async function main() {
+                let info1 = await client.from("reward-accounts").select("*");
+                users = [];
+                pswds = [];
+                info1.data.forEach(dati => {
+                    users.push(dati.username);
+                    pswds.push(dati.password);
+                });
+            }
+            async function login() {
+                if (!users.includes(usernameInp.value)) {
+                    await client.from("reward-accounts").insert([{username:usernameInp.value,password:passwordInp.value,data:{points:1000}}]);
+                    localStorage.setItem("login", JSON.stringify({username:usernameInp.value,password:passwordInp.value}));
+                    location.assign(".");
+                } else {
+                    alert("already user");
+                }
+            }
+            main();
+            document.querySelector("#btn").addEventListener("click", login);
+        </script>
+    </body>
+</html>

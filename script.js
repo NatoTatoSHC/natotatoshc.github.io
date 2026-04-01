@@ -16,6 +16,10 @@ Object.keys(sections).forEach(tabId => {
   };
 });
 
+document.getElementById("rewards").onclick = () => {
+  location.assign("./rewards");
+}
+
 document.getElementById("QC").onclick = () => {
   location.assign("https://natotatoshc.github.io/QuantumClicker");
 };

@@ -57,17 +57,39 @@
         </div>
         <div id="redeem">
             <h2>Redeem</h2>
-            <div class="redeem-item"><img src="https://natotatoshc.github.io/QuantumClicker/src/cursor.png"><h2>10x Cursors</h2><p>Price: 2000</p><button onclick="qpurchase('cursors', 10, 2000)">Redeem</button></div>
-            <div class="redeem-item"><img src="https://natotatoshc.github.io/QuantumClicker/src/dam.png"><h2>10x Dams</h2><p>Price: 4000</p><button onclick="qpurchase('dams', 10, 4000)">Redeem</button></div>
+            <div id="cl" class="redeem-item"><img src="https://natotatoshc.github.io/QuantumClicker/src/quantum.png"><h2><select><option value="1000">1,000</option><option value="5000">5,000</option><option value="10000">10,000</option></select>Units</h2><p>Price: 10:1,000</p><button onclick="qpurchase('clicks', 'cl', .01)">Redeem</button></div>
+            <div id="c" class="redeem-item"><img src="https://natotatoshc.github.io/QuantumClicker/src/cursor.png"><h2><select><option value="10">10</option><option value="50">50</option><option value="100">100</option></select>Cursors</h2><p>Price: 2000:10</p><button onclick="qpurchase('cursors', 'c', 200)">Redeem</button></div>
+            <div id="h" class="redeem-item"><img src="https://natotatoshc.github.io/QuantumClicker/src/dam.png"><h2><select><option value="10">10</option><option value="50">50</option><option value="100">100</option></select>Dams</h2><p>Price: 4000:10</p><button onclick="qpurchase('dams', 'h', 400)">Redeem</button></div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script>
             let ptsd = {};
+            let users = [];
             let client = supabase.createClient("https://ywsbaxwlytkjkzhyfzqr.supabase.co", "sb_publishable_C6rZSBHWegX7bzcsv7OGFg_PgJkqTC0");
+            async function aCh() {
+                let info1 = await client.from("reward-accounts").select("*");
+                info1.data.forEach(dati => {
+                    users.push(dati.username);
+                });
+            }
             if (localStorage.getItem("login") == undefined) {
                 location.assign("./login.html");
             }
             const locData = JSON.parse(localStorage.getItem("login"));
+            let psscorrect = false;
+            async function check() {
+                let {data, error} = await client.from("reward-accounts").select("*").eq("username", locData.username);
+                data.forEach(dati => {
+                    if (dati.password != locData.password) {
+                        location.assign("./login.html");
+                    }
+                });
+                await aCh();
+                if (!users.includes(JSON.parse(localStorage.getItem("login")).username)) {
+                    location.assign("./login.html");
+                }
+            }
+            check();
             async function pullAmount() {
                 let {data, e} = await client.from("reward-accounts").select("*").eq("username", locData.username);
                 data.forEach(dati => {
@@ -76,16 +98,17 @@
                 });
             }
             async function pushAmount() {
+                if (locData.password)
                 await client.from("reward-accounts").update([{data:ptsd}]).eq("username", locData.username);
                 pullAmount();
             }
             async function qpurchase(vari, amount, price) {
-                if (ptsd.points >= price) {
-                    ptsd.points -= price;
+                if (ptsd.points >= Number(document.getElementById(amount).querySelector("h2").querySelector("select").value) * price) {
+                    ptsd.points -= Number(document.getElementById(amount).querySelector("h2").querySelector("select").value) * price;
                     pushAmount();
                     let code = Math.round(Math.random()*100000);
                     alert("Code: "+code);
-                    await client.from("quantum-rewards").insert([{code:code,var:vari,amount:amount,security_verify:locData.username}]);
+                    await client.from("quantum-rewards").insert([{code:code,var:vari,amount:Number(document.getElementById(amount).querySelector("h2").querySelector("select").value),security_verify:locData.username}]);
                 }
             }
             pullAmount();

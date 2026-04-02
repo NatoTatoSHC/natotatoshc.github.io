@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title></title>
+        <title>NatoTatoSHC Rewards</title>
         <style>
             header {
                 text-align: center;
@@ -54,6 +54,8 @@
         </div>
         <div id="earn">
             <h2>Earn</h2>
+            <h3>Enter Code For Points</h3>
+            <input type="text" autocomplete="off" id="redeem-code"><button onclick="code();">Redeem</button>
         </div>
         <div id="redeem">
             <h2>Redeem</h2>
@@ -65,6 +67,7 @@
         <script>
             let ptsd = {};
             let users = [];
+            let codes = {};
             let client = supabase.createClient("https://ywsbaxwlytkjkzhyfzqr.supabase.co", "sb_publishable_C6rZSBHWegX7bzcsv7OGFg_PgJkqTC0");
             async function aCh() {
                 let info1 = await client.from("reward-accounts").select("*");
@@ -90,15 +93,36 @@
                 }
             }
             check();
+
+            async function code() {
+                if (!ptsd.redeemed) {
+                    ptsd.redeemed = [];
+                }
+                pushAmount();
+                let redeemed = [];
+                let tcode = document.getElementById("redeem-code").value;
+                redeemed = ptsd.redeemed;
+                document.getElementById("redeem-code").value = "";
+                if (Object.keys(codes).includes(tcode)) {
+                    if (!ptsd.redeemed.includes(tcode)) {
+                        ptsd.redeemed.push(tcode);
+                        ptsd.points += codes[tcode];
+                    }
+                }
+            }
+
             async function pullAmount() {
-                let {data, e} = await client.from("reward-accounts").select("*").eq("username", locData.username);
+                let {data, e} = await client.from("reward-accounts").select("*").eq("username", "codes");
                 data.forEach(dati => {
+                    codes = dati.data;
+                });
+                let info = await client.from("reward-accounts").select("*").eq("username", locData.username);
+                info.data.forEach(dati => {
                     ptsd = dati.data;
                     document.querySelector("#points").textContent = dati.data.points+"pts";
                 });
             }
             async function pushAmount() {
-                if (locData.password)
                 await client.from("reward-accounts").update([{data:ptsd}]).eq("username", locData.username);
                 pullAmount();
             }

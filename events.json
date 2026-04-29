@@ -1,7 +1,9 @@
 {
   "nautical": {
     "server": {
-      "commands": []
+      "commands": [
+        ["sockets"]
+      ]
     }
   }
 }
